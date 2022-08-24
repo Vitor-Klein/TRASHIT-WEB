@@ -1,0 +1,129 @@
+.register-container {
+  width: 100vw;
+  max-width: 1120px;
+  height: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: -15px;
+}
+ header {
+  margin-top: -20px;
+  margin-left: 50px;
+}
+
+header img {
+  width: 150px;
+  height: 150px;
+}
+
+.register-container .content {
+  width: 100%;
+  padding: 96px;
+  background: #f0f0f5;
+  box-shadow: 0 0 100px rgba(0,0,0,0.1);
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.register-container .content section {
+  width: 100%;
+  max-width: 380px;
+}
+
+.register-container .content section h1 {
+  margin: 64px 0 32px;
+  font-size: 32px;
+  color: var(--background-color);
+}
+
+.register-container .content section p{
+  font-size: 18px;
+  color: #737380;
+  line-height: 32px;
+}
+  
+.register-container .content form {
+  width: 100%;
+  max-width: 450px;
+}
+
+.register-container .content form input {
+  margin-top: 8px;
+}
+
+.register-container .content form .input-group {
+  display: flex;
+
+}
+
+.register-container .content form .input-group input + input {
+  margin-left: 8px;
+}
+
+.button {
+  width: 100%;
+  height: 60px;
+  background: var(--primary-color);
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  margin-top: 16px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 60px;
+  transition:  0.2s;
+}
+
+.button:hover {
+  filter: brightness(90%);
+}
+
+
+form input {
+  width: 100%;
+  height: 60px;
+  color: #333;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+  padding: 0 24px;
+}
+
+form textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 140px;
+  color: #333;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+  padding: 16px 24px;
+  line-height: 24px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  color: #41414d;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.back-link svg {
+  margin-right: 8px;
+}
+
+.back-link:hover {
+  opacity: 0.8;
+}
