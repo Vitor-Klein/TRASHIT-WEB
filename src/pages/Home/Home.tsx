@@ -1,7 +1,7 @@
 import React from 'react'
 import { FiLogIn } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import { Player, Controls } from '@lottiefiles/react-lottie-player'
+import { Player } from '@lottiefiles/react-lottie-player'
 
 import './styles.css'
 import logo from '../../assets/logo.svg'
@@ -37,7 +37,6 @@ function Home() {
             src={HomeAnimation}
             style={{ height: '500px', width: '500px' }}
           >
-            <Controls visible={false} buttons={['play', 'repeat', 'frame', 'debug']} />
           </Player>
         </main>
       </div>

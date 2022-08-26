@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Player, Controls } from '@lottiefiles/react-lottie-player'
+import { Player } from '@lottiefiles/react-lottie-player'
 import { FiLogIn } from 'react-icons/fi'
 
 import './styles.css'
@@ -20,10 +20,10 @@ function Login() {
           <div className='infos'>
             <p className="titulo">Faça seu login.</p>
 
-            <input type="text" placeholder="Nome" />
-            <input type="text" placeholder="E-mail" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Senha" />
 
-            <Link className="signIn" to="/signUp">
+            <Link className="signIn" to="/signIn">
               <strong>Entrar</strong>
             </Link>
 
@@ -43,7 +43,6 @@ function Login() {
             src={LoginAnimation}
             style={{ height: '700px', width: '700px' }}
           >
-            <Controls visible={false} buttons={['play', 'repeat', 'frame', 'debug']} />
           </Player>
         </main>
       </div>
