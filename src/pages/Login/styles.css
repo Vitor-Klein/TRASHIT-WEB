@@ -19,9 +19,10 @@
 
 }
 
-/* .container .content main .animation {
-
-} */
+.animation{
+  width: 700px;
+  height: 700px;
+}
 
 .container .content header {
   margin: -100px 0 0;
@@ -121,11 +122,43 @@
 }
 
 @media(max-width: 900px) {
+  .container{
+    margin-top: -30px;
+    margin: 0;
+    padding: 0;
+  }
   .container .content {
     display: flex;
     justify-content:center;
     align-items: center;
-    padding: 20px;
+  }
+
+  .container .content header {
+    margin-bottom: 80px;
+  }
+
+  .animation{
+    display: none;
+  }
+
+  .container .content header img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .container .content main {
+    width: 100vw;
+  
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -100px
+  }
+
+  .input{
+    max-width: 80vw;
+    max-height: 50px
   }
 
   .container .content header {
@@ -152,21 +185,10 @@
 
   }
 
-  .container .content main a {
-    width: 100%;
-    max-width: 300px;
-    height: 50px;
-    background: var(--primary-color);
-    border-radius: 8px;
-    text-decoration: none;
-  
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    overflow: hidden;
-  
-    margin-top: 30px;
+  .signIn{
+    width: 80%;
   }
+
   .animation{
     display: none
   }

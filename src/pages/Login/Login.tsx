@@ -12,7 +12,7 @@ function Login() {
     <div className="container">
       <div className="content">
         <header>
-          <img src={logo} alt="Ecoleta" />
+          <img src={logo} alt="Ecoleta" className="logo" />
         </header>
 
         <main>
@@ -20,8 +20,8 @@ function Login() {
           <div className='infos'>
             <p className="titulo">Faça seu login.</p>
 
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Senha" />
+            <input type="email" placeholder="Email" className="input" />
+            <input type="password" placeholder="Senha" className="input" />
 
             <Link className="signIn" to="/signIn">
               <strong>Entrar</strong>
@@ -41,7 +41,7 @@ function Login() {
             autoplay
             loop
             src={LoginAnimation}
-            style={{ height: '700px', width: '700px' }}
+            className="animation"
           >
           </Player>
         </main>
