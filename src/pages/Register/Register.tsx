@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
-
+import axios from 'axios'
 import api from '../../services/api'
 
 import logoImg from '../../assets/fullLogo.svg'
@@ -9,19 +9,65 @@ import logo from '../../assets/logo.svg'
 
 import './styles.css'
 
+interface IBGEUFResponse {
+  sigla: string
+}
+
+interface IBGECityResponse {
+  nome: string
+}
+
 function Register() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [cnpj, setCnpj] = useState('')
     const [whatsapp, setWhatsapp] = useState('')
-    const [city, setCity] = useState('')
-    const [uf, setUf] = useState('')
-
+    const [selectedUf, setSelectedUf] = useState('0')
+    const [selectedCity, setSelecdetCity] = useState('0')
+    const [ufs, setUfs] = useState<string[]>([])
+    const [cities, setCities] = useState<string[]>([])
     const navigate = useNavigate();
 
-    async function handleRegister(e) {
+    useEffect(() => {
+      axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+        const ufInitials = response.data.map(uf => uf.sigla)
+  
+        setUfs(ufInitials)
+      })
+    },[])
+
+    useEffect(() => {
+      if(selectedUf === '0') {
+        return
+      }
+      axios
+        .get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
+        .then(response => {
+          const cityNames = response.data.map(city => city.nome)
+  
+          setCities(cityNames)
+      })
+  
+    }, [selectedUf])
+
+    function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
+      const uf = event.target.value
+  
+      setSelectedUf(uf)
+    }
+  
+    function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+      const city = event.target.value
+  
+      setSelecdetCity(city)
+    }
+
+    async function handleRegister(e: FormEvent) {
         e.preventDefault()
+
+        const uf = selectedUf
+        const city = selectedCity
 
         const data = {
             name,
@@ -31,12 +77,13 @@ function Register() {
             number: whatsapp,
             city,
             uf,
+            adm: true
         };
 
       try {
         await api.post('user', data)
         alert("Cadastro realizado com sucesso!!")
-        navigate(`/points`);
+        navigate(`/signIn`);
       } catch (err) {
           alert(err)
       }
@@ -89,18 +136,35 @@ function Register() {
             />
 
             <div className="input-group">
-              <input
-                placeholder='Cidade'
-                value={city}
-                onChange={e => setCity(e.target.value)}
-              />
+            <div className="field">
+             <label htmlFor="city"></label>
+             <select 
+              name="city" 
+              id="city"
+              value={selectedCity}
+              onChange={handleSelectCity}
+             >
+               <option value="0">Selecione uma Cidade</option>
+               {cities.map(city => (
+                 <option key={city} value={city}>{city}</option>
+               ))}
+             </select>
+           </div>
 
-              <input
-                placeholder='UF'
-                style={{ width: 80 }}
-                value={uf}
-                onChange={e => setUf(e.target.value)}
-              />
+           <div className="field">
+             <label htmlFor="uf"></label>
+             <select 
+                name="uf" 
+                id="uf" 
+                value={selectedUf} 
+                onChange={handleSelectUf}
+              >
+               <option value="0">Selecione uma UF</option>
+               {ufs.map(uf => (
+                 <option key={uf} value={uf}>{uf}</option>
+               ))}
+             </select>
+           </div>
             </div>
 
             <button className="button" type="submit">Cadastrar</button>

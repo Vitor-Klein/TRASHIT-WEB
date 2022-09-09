@@ -60,9 +60,10 @@
   background: var(--primary-color);
   border-radius: 8px;
   text-decoration: none;
-
+  border: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
 
   margin-top: 30px;
@@ -86,10 +87,16 @@
   height: 20px;
 }
 
+.signIn a {
+  text-decoration: none;
+  text-align: center;
+}
+
 .signIn strong {
   flex: 1;
   text-align: center;
   color: #FFF;
+  font-size: 16px
 }
 
 .linkButton {
