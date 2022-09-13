@@ -10,6 +10,7 @@ import logo from '../../assets/logo.svg'
 
 import LoginAnimation from '../../animations/peoples.json'
 
+
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,9 +23,8 @@ function Login() {
     await api.get(`user/authent`,{ params: { email,password } })
     alert('Acesso Autorizado!')
     navigate(`/pontos`);
-
   } catch (err) {
-      alert(err)
+    alert(err)
   }
 }
 
@@ -53,9 +53,7 @@ function Login() {
             />
 
             <button type="submit" className="signIn" >
-              <Link to="/signIn">
                 <strong>Entrar</strong>
-              </Link>
             </button>
 
             <Link className='linkButton' to="/signUp">
