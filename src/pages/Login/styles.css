@@ -65,7 +65,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
+  color: #fff;
+  font-size: 16px;
   margin-top: 30px;
 }
 

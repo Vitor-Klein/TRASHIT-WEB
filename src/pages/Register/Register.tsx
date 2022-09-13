@@ -1,4 +1,5 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
+import { Input } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
 import axios from 'axios'
@@ -108,63 +109,63 @@ function Register() {
           </section>
 
           <form onSubmit={handleRegister}>
-            <input
+            <Input
               placeholder='Nome Fantasia'
               value={name}
               onChange={e => setName(e.target.value)}
             />
 
-            <input
+            <Input
               type="email" placeholder='E-mail'
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
-            <input
+            <Input
               type="password" placeholder='Senha'
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-             <input
+             <Input
               placeholder='Cnpj'
               value={cnpj}
               onChange={e => setCnpj(e.target.value)}
             />
-            <input
+            <Input
               placeholder='Whatsapp'
               value={whatsapp}
               onChange={e => setWhatsapp(e.target.value)}
             />
 
             <div className="input-group">
-            <div className="field">
-             <label htmlFor="city"></label>
-             <select 
-              name="city" 
-              id="city"
-              value={selectedCity}
-              onChange={handleSelectCity}
-             >
-               <option value="0">Selecione uma Cidade</option>
-               {cities.map(city => (
-                 <option key={city} value={city}>{city}</option>
-               ))}
-             </select>
-           </div>
+              <div className="field">
+                <label htmlFor="uf"></label>
+                <select 
+                    name="uf" 
+                    id="uf" 
+                    value={selectedUf} 
+                    onChange={handleSelectUf}
+                  >
+                  <option value="0">Selecione uma UF</option>
+                  {ufs.map(uf => (
+                    <option key={uf} value={uf}>{uf}</option>
+                  ))}
+                </select>
+              </div>
 
-           <div className="field">
-             <label htmlFor="uf"></label>
-             <select 
-                name="uf" 
-                id="uf" 
-                value={selectedUf} 
-                onChange={handleSelectUf}
-              >
-               <option value="0">Selecione uma UF</option>
-               {ufs.map(uf => (
-                 <option key={uf} value={uf}>{uf}</option>
-               ))}
-             </select>
-           </div>
+              <div className="field">
+                <label htmlFor="city"></label>
+                <select 
+                  name="city" 
+                  id="city"
+                  value={selectedCity}
+                  onChange={handleSelectCity}
+                >
+                  <option value="0">Selecione uma Cidade</option>
+                  {cities.map(city => (
+                    <option key={city} value={city}>{city}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <button className="button" type="submit">Cadastrar</button>

@@ -1,4 +1,9 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
+import { Input, Form, Button } from 'antd'
+import {
+  MailOutlined,
+  LockOutlined
+} from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { Player } from '@lottiefiles/react-lottie-player'
 import { FiLogIn } from 'react-icons/fi'
@@ -17,16 +22,14 @@ function Login() {
   const navigate = useNavigate();
 
   async function handleRegister(e: FormEvent) {
-    e.preventDefault()
-
-  try {
-    await api.get(`user/authent`,{ params: { email,password } })
-    alert('Acesso Autorizado!')
-    navigate(`/pontos`);
-  } catch (err) {
-    alert(err)
+    try {
+      await api.get(`user/authent`, { params: { email, password } })
+      alert('Acesso Autorizado!')
+      navigate(`/pontos`);
+    } catch (err) {
+      alert(err.response.data.message)
+    }
   }
-}
 
   return (
     <div className="container">
@@ -40,31 +43,64 @@ function Login() {
           <div className='infos'>
             <p className="titulo">Faça seu login.</p>
 
-            <form onSubmit={handleRegister}>
-            <input
-              type="email" placeholder='E-mail'
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-            <input
-              type="password" placeholder='Senha'
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
+            <Form
+              onFinish={handleRegister}
+              autoComplete="off"
+            >
+              <Form.Item
+                required
+                rules={[
+                  {
+                    required: true,
+                    message: 'Informe seu email!',
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Email"
+                  autoCapitalize="none"
+                  value={email}
+                  className="input"
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </Form.Item>
 
-            <button type="submit" className="signIn" >
-                <strong>Entrar</strong>
-            </button>
+              <Form.Item
+                required
+                rules={[
+                  {
+                    required: true,
+                    message: 'Informe seu email!',
+                  },
+                ]}
+              >
+                <Input
+                  type="password"
+                  placeholder='Senha'
+                  value={password}
+                  className="input"
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </Form.Item>
 
-            <Link className='linkButton' to="/signUp">
-              <FiLogIn size={20} color='#2ead65' style={{ marginRight: '10px' }} />
-              Não tenho cadastro
-            </Link>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="signIn"
+                >Entrar
+                </Button>
+              </Form.Item>
 
-            <Link className="linkButton" to="/forgotPassword">
-              <span>Esqueci minha senha</span>
-            </Link>
-            </form>
+              <Link className='linkButton' to="/signUp">
+                <FiLogIn size={20} color='#2ead65' style={{ marginRight: '10px' }} />
+                Não tenho cadastro
+              </Link>
+
+              <Link className="linkButton" to="/forgotPassword">
+                <span>Esqueci minha senha</span>
+              </Link>
+            </Form>
           </div>
 
           <Player
