@@ -13,13 +13,17 @@
     "@types/antd": "^1.0.0",
     "antd": "^4.23.1",
     "axios": "^0.27.2",
+    "leaflet": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-leaflet": "^4.0.2",
+    "react-leaflet-enhanced-marker": "^1.0.21",
     "react-router-dom": "6"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/leaflet": "^1.7.11",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.1",
