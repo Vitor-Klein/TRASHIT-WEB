@@ -1,0 +1,43 @@
+.mapMarker {
+  width: 90px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -5px
+}
+
+.mapMarkerContainer {
+  width: 90px;
+  height: 70px;
+  background-color: #34CB79;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.mapMarkerImage {
+  width: 90px;
+  height: 45px;
+  resize: inherit
+}
+
+.mapMarkerTitle {
+  color: #fff;
+  font-size: 13px;
+  line-height: 23px
+}
+
+.triangle{
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  
+  border-top: 10px solid #34CB79;
+  margin-top: -5px
+}
