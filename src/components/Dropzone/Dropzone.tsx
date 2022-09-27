@@ -12,10 +12,8 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
   const [selectedFileUrl, setSelectedFileUrl] = useState('')
 
   const onDrop = useCallback((acceptedFiles: BlobPart[]) => {
-   const file = acceptedFiles[0]
     
    const imageConvert = new Blob([acceptedFiles[0]], {type: 'image'})
-   const imgUrl = URL.createObjectURL(imageConvert)
 
    const fileUrl = URL.createObjectURL(imageConvert)
 
