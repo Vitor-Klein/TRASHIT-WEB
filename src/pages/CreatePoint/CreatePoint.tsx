@@ -46,7 +46,7 @@ const CreatePoint = () => {
   const [selectedCity, setSelecdetCity] = useState('0')
   const [selectedItems, setSelectedItems] = useState<number[]>([])
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
-  const [selectedFile, setSelectedFile] = useState<Blob>()
+  const [selectedFile, setSelectedFile] = useState<string>()
 
   const navigate = useNavigate();
 

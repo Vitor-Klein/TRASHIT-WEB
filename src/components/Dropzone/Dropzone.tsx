@@ -5,7 +5,7 @@ import { FiUpload } from 'react-icons/fi'
 import './styles.css'
 
 interface Props {
-  onFileUplouded: (file: Blob) => void
+  onFileUplouded: (file: string) => void
 }
 
 const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
@@ -13,12 +13,14 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
 
   const onDrop = useCallback((acceptedFiles: BlobPart[]) => {
    const file = acceptedFiles[0]
+    
    const imageConvert = new Blob([acceptedFiles[0]], {type: 'image'})
+   const imgUrl = URL.createObjectURL(imageConvert)
 
    const fileUrl = URL.createObjectURL(imageConvert)
 
    setSelectedFileUrl(fileUrl)
-   onFileUplouded(imageConvert)
+   onFileUplouded(fileUrl)
   }, [onFileUplouded])
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
