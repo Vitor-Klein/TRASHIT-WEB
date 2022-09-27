@@ -158,12 +158,12 @@ const CreatePoint = () => {
   }
 
   return (
-   <div id="page-create-point">
+   <div className="pageCreatePoint">
      <header>
       <img src={logo} alt="Ecoleta"/>
-      <Link to="/">
+      <Link to="/pontos">
         <FiArrowLeft />
-        Voltar para Home
+        Voltar para Pontos
       </Link>
      </header>
 
@@ -271,7 +271,7 @@ const CreatePoint = () => {
            <h2>Ítens de coleta</h2>
            <span>Selecione um ou mais ítems abaixo</span>
          </legend>
-         <ul className="items-grid">
+         <ul className="itemsGrid">
            {items.map(item => (
              <li 
               key={item.id} 
