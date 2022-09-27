@@ -14,14 +14,9 @@ function CreatePoint() {
 
   function convertImage() {
     const imageConvert = new Blob([file], {type: 'image'})
-    let aa = new FileReader()
     
-    aa.onload = () => {
-      console.log(aa.result)
-    }
-    aa.readAsArrayBuffer(imageConvert)
-    console.log(aa);
-    
+    const imgUrl = URL.createObjectURL(imageConvert)
+    console.log(imgUrl)
   }
   return (
     <div>
