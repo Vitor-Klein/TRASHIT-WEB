@@ -13,8 +13,9 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
 
   const onDrop = useCallback((acceptedFiles: any[]) => {
    const file = acceptedFiles[0]
+   const imageConvert = new Blob([file], {type: 'image'})
 
-   const fileUrl = URL.createObjectURL(file)
+   const fileUrl = URL.createObjectURL(imageConvert)
 
    setSelectedFileUrl(fileUrl)
    onFileUplouded(file)
