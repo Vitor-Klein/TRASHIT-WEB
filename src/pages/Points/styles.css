@@ -4,6 +4,27 @@
   margin: 0 auto;
 }
 
+.pointsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.addPoint {
+  border: 3px solid var(--primary-color);
+  text-decoration: none;
+  width: 150px;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff
+}
+
+.addPoint strong{
+  text-align: center;
+  color: var(--primary-color);
+} 
+
 .mapContainer {
   width: 100vw;
   max-width: 1100px;

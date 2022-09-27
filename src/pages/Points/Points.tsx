@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import api from '../../services/api'
 import logo from '../../assets/logo.svg'
@@ -60,7 +61,7 @@ function Points() {
   function handleSelectItem(id: number) {
     const alredySelected = selectedItems.findIndex(item => item === id)
 
-    if(alredySelected >= 0) {
+    if (alredySelected >= 0) {
       const filteredItems = selectedItems.filter(item => item !== id)
 
       setSelectedItems(filteredItems)
@@ -73,8 +74,11 @@ function Points() {
 
   return (
     <div className="pointsContainer">
-      <header>
+      <header className="pointsHeader">
         <img src={logo} alt="Ecoleta" />
+        <Link to="/createPoint" className="addPoint">
+          <strong>Cadastrar Ponto</strong>
+        </Link>
       </header>
       <div className="mapContainer">
         {initialPosition[0] !== 0 && (
@@ -88,7 +92,7 @@ function Points() {
                 key={initialPosition[0]}
                 position={initialPosition}
                 interactive={false}
-                icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString( <MarkerCustom/> ) })}
+                icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
               >
 
               </Marker>
@@ -102,19 +106,19 @@ function Points() {
       </div>
 
       <div className="containerCategorias">
-      <ul className="items-grid">
-           {items.map(item => (
-             <li 
-              key={item.id} 
-              onClick={() => handleSelectItem(item.id)} 
+        <ul className="items-grid">
+          {items.map(item => (
+            <li
+              key={item.id}
+              onClick={() => handleSelectItem(item.id)}
               className={selectedItems.includes(item.id) ? 'selected' : ''}
-             >
-             <img src={`http://localhost:3333/uploads/${item.imageData}`} alt={item.title}/>
-           <span>{item.title}</span>
-           </li>
-           ))}
-           
-         </ul>
+            >
+              <img src={`http://localhost:3333/uploads/${item.imageData}`} alt={item.title} />
+              <span>{item.title}</span>
+            </li>
+          ))}
+
+        </ul>
       </div>
     </div>
   )
