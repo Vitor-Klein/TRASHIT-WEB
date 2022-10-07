@@ -81,7 +81,7 @@ function Points() {
         </Link>
       </header>
       <div className="mapContainer">
-        {initialPosition[0] !== 0 && (
+        {initialPosition[0] !== 0 && initialPosition[1] !== 0 && (
           <div className="map">
             <MapContainer
               center={initialPosition}

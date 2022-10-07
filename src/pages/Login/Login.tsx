@@ -24,6 +24,7 @@ function Login() {
   async function handleRegister(e: FormEvent) {
     try {
       await api.get(`user/authent`, { params: { email, password } })
+//salvar o usuario no localstorage para usar futuramente nas paginas
       alert('Acesso Autorizado!')
       navigate(`/pontos`);
     } catch (err) {
@@ -59,6 +60,7 @@ function Login() {
                 <Input
                   placeholder="Email"
                   autoCapitalize="none"
+                  type='email'
                   value={email}
                   className="input"
                   onChange={e => setEmail(e.target.value)}

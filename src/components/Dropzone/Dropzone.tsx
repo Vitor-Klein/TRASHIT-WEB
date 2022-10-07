@@ -19,6 +19,7 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
 
    setSelectedFileUrl(fileUrl)
    onFileUplouded(fileUrl)
+   console.log(fileUrl)
   }, [onFileUplouded])
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
