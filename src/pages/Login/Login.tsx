@@ -23,9 +23,10 @@ function Login() {
 
   async function handleRegister(e: FormEvent) {
     try {
-      await api.get(`user/authent`, { params: { email, password } })
-//salvar o usuario no localstorage para usar futuramente nas paginas
+      const user = await api.get(`user/authent`, { params: { email, password } })
+      //salvar o usuario no localstorage para usar futuramente nas paginas
       alert('Acesso Autorizado!')
+      localStorage.setItem("user", JSON.stringify(user))
       navigate(`/pontos`);
     } catch (err) {
       alert(err.response.data.message)

@@ -41,6 +41,9 @@ function Points() {
 
   const navigation = useNavigate()
 
+  // const user = localStorage.getItem('user')
+  // const userData = JSON.parse(`${user}`).data
+
   useEffect(() => {
     async function loadPosition() {
       navigator.geolocation.getCurrentPosition(position => {
@@ -58,6 +61,13 @@ function Points() {
     })
   }, [])
 
+  useEffect(() => {
+    api.get('pontocoleta').then(response => {
+      setPoints(response.data)
+    })
+  }, [selectedItems])
+
+
   function handleSelectItem(id: number) {
     const alredySelected = selectedItems.findIndex(item => item === id)
 
@@ -71,6 +81,22 @@ function Points() {
 
   }
 
+
+  const MyMarkers = () => {
+
+    return points.map(point => {
+      <Marker
+        key={point.id}
+        position={
+          [
+            point.latitude,
+            point.longitude
+          ]}
+        interactive={false}
+        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
+      />
+    });
+  }
 
   return (
     <div className="pointsContainer">
@@ -88,14 +114,7 @@ function Points() {
               zoom={15}
               style={{ width: '800px', height: '450px', borderRadius: '8px' }}
             >
-              <Marker
-                key={initialPosition[0]}
-                position={initialPosition}
-                interactive={false}
-                icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
-              >
-
-              </Marker>
+              <MyMarkers />
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -117,7 +117,7 @@ const CreatePoint = () => {
         key={initialPosition[0]}
         position={selectedPosition}
         interactive={false}
-        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
+      // icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
       >
       </Marker>
     )
@@ -146,7 +146,7 @@ const CreatePoint = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const {name, email, whatsapp} = formData
+    const { name, email, whatsapp } = formData
     const uf = selectedUf
     const city = selectedCity
     const [latitude, longitude] = selectedPosition
@@ -159,7 +159,7 @@ const CreatePoint = () => {
       uf,
       city,
       country: 'Brasil',
-      latitude, 
+      latitude,
       longitude,
       items,
       image: selectedFile
