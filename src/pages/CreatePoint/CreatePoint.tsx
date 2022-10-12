@@ -110,7 +110,6 @@ const CreatePoint = () => {
         ])
       },
     })
-    console.log(selectedPosition)
 
     return selectedPosition === null ? null : (
       <Marker
@@ -168,7 +167,7 @@ const CreatePoint = () => {
     await api.post('pontocoleta', data)
 
     alert('Ponto de coleta criado!')
-    // navigate('/pontos')
+    navigate('/pontos')
     // console.log(selectedFile)
   }
 

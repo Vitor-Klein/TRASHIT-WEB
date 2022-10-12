@@ -83,7 +83,6 @@ function Points() {
 
 
   const MyMarkers = () => {
-
     return points.map(point => {
       <Marker
         key={point.id}
@@ -96,6 +95,21 @@ function Points() {
         icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
       />
     });
+  }
+
+  const ShowMarkers = ({ markers }: any) => {
+    return markers.map((point: any) => {
+      return <Marker
+        key={point.id}
+        position={
+          [
+            point.latitude,
+            point.longitude
+          ]}
+        interactive={false}
+        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
+      />
+    })
   }
 
   return (
@@ -114,7 +128,7 @@ function Points() {
               zoom={15}
               style={{ width: '800px', height: '450px', borderRadius: '8px' }}
             >
-              <MyMarkers />
+              <ShowMarkers markers={points} />
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
