@@ -107,7 +107,7 @@ function Points() {
             point.longitude
           ]}
         interactive={false}
-        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
+        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom pointImage={point.image} />) })}
       />
     })
   }
