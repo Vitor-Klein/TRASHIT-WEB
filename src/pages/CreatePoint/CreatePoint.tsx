@@ -164,7 +164,7 @@ const CreatePoint = () => {
       image: selectedFile
     }
 
-    await api.post('pontocoleta', data)
+    await api.post('/pontocoleta', data)
 
     alert('Ponto de coleta criado!')
     navigate('/pontos')

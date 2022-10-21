@@ -82,21 +82,6 @@ function Points() {
   }
 
 
-  const MyMarkers = () => {
-    return points.map(point => {
-      <Marker
-        key={point.id}
-        position={
-          [
-            point.latitude,
-            point.longitude
-          ]}
-        interactive={false}
-        icon={L.divIcon({ className: "custom icon", html: ReactDOMServer.renderToString(<MarkerCustom />) })}
-      />
-    });
-  }
-
   const ShowMarkers = ({ markers }: any) => {
     return markers.map((point: any) => {
       return <Marker
