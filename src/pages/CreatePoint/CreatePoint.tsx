@@ -168,7 +168,6 @@ const CreatePoint = () => {
 
     alert('Ponto de coleta criado!')
     navigate('/pontos')
-    // console.log(selectedFile)
   }
 
   return (

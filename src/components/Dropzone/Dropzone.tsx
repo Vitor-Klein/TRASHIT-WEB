@@ -18,7 +18,6 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
     let baseURL: any
     reader.onload = () => {
       baseURL = reader.result
-      console.log(baseURL)
       onFileUplouded(baseURL)
     }
 
