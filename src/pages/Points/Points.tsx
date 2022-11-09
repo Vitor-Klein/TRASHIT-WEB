@@ -6,8 +6,8 @@ import api from '../../services/api'
 import logo from '../../assets/logo.svg'
 import ReactDOMServer from 'react-dom/server'
 import L from 'leaflet'
-
 import MarkerCustom from '../../components/Marker/Marker'
+import { Button } from 'antd'
 
 import './styles.css'
 
@@ -21,7 +21,6 @@ interface Point {
   id: number
   name: string
   image: string
-  imageData: string
   latitude: number
   longitude: number
 }
@@ -62,13 +61,8 @@ function Points() {
   }, [])
 
   useEffect(() => {
-    api.get('pontocoleta/findCa', {
-      params: {
-        id_category: selectedItems
-      }
-    }).then(response => {
-      const values: any = Object.values(response.data)
-      setPoints(values.tb_ponto_coletum)
+    api.get('pontocoleta').then(response => {
+      setPoints(response.data)
     })
   }, [selectedItems])
 
@@ -89,23 +83,33 @@ function Points() {
 
   const ShowMarkers = ({ markers }: any) => {
     return markers.map((point: any) => {
-      return <Marker
-        key={point.id}
-        position={
-          [
-            point.latitude,
-            point.longitude
-          ]}
-        interactive={false}
-        icon={L.divIcon({
-          className: "custom icon", html: ReactDOMServer.renderToString(
-            <MarkerCustom
-              pointImage={point.image}
-              pointName={point.name}
-            />
-          )
-        })}
-      />
+      return (
+        <>
+          <Marker
+            position={
+              [
+                point.latitude,
+                point.longitude
+              ]}
+            eventHandlers={{
+              click: () => {
+                console.log('marker clicked')
+              },
+            }}
+            interactive={true}
+            icon={L.divIcon({
+              className: "custom icon", html: ReactDOMServer.renderToString(
+                <>
+                  <MarkerCustom
+                    pointImage={point.image}
+                    pointName={point.name}
+                  />
+                </>
+              )
+            })}
+          />
+        </>
+      )
     })
   }
 

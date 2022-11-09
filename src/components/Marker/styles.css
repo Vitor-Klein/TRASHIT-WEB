@@ -7,6 +7,7 @@
   justify-content: center;
   margin-top: -70px;
   margin-left: -40px;
+  position: absolute;
 }
 
 .mapMarkerContainer {
@@ -33,12 +34,12 @@
   line-height: 23px
 }
 
-.triangle{
-  width: 0; 
-  height: 0; 
+.triangle {
+  width: 0;
+  height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  
+
   border-top: 10px solid #34CB79;
   margin-top: -5px
 }

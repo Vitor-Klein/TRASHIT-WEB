@@ -20,10 +20,10 @@
   background-color: #fff
 }
 
-.addPoint strong{
+.addPoint strong {
   text-align: center;
   color: var(--primary-color);
-} 
+}
 
 .mapContainer {
   width: 100vw;
