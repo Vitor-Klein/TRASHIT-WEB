@@ -61,9 +61,24 @@ function Points() {
   }, [])
 
   useEffect(() => {
-    api.get('pontocoleta').then(response => {
-      setPoints(response.data)
-    })
+    if (selectedItems.length === 0) {
+      api.get('/pontocoleta').then(response => {
+        setPoints(response.data)
+      })
+    } else {
+      api.get('pontocoleta/findCa', {
+        params: {
+          id_category: selectedItems
+        }
+      }).then(response => {
+        var arr = [];
+        for (var i = 0; i < response.data.length; i++) {
+          var a = response.data[i].tb_ponto_coletum;
+          arr.push(a);
+          setPoints(arr);
+        }
+      })
+    }
   }, [selectedItems])
 
 
@@ -79,7 +94,6 @@ function Points() {
     }
 
   }
-
 
   const ShowMarkers = ({ markers }: any) => {
     return markers.map((point: any) => {
