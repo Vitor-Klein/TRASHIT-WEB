@@ -50,6 +50,10 @@ const CreatePoint = () => {
 
   const navigate = useNavigate();
 
+  const user = localStorage.getItem('user')
+  const userData = JSON.parse(`${user}`).data
+  console.log(userData)
+
   useEffect(() => {
     async function loadPosition() {
       navigator.geolocation.getCurrentPosition(position => {
@@ -161,7 +165,8 @@ const CreatePoint = () => {
       latitude,
       longitude,
       items,
-      image: selectedFile
+      image: selectedFile,
+      id_user: userData.id
     }
 
     await api.post('/pontocoleta', data)

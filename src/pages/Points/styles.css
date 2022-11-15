@@ -87,3 +87,76 @@
   width: 35px;
   height: 35px;
 }
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  flex-direction: column;
+}
+
+.modalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  height: 95vh;
+  background-color: var(--background-color);
+  overflow: auto;
+  border-radius: 8px;
+  flex-direction: column;
+}
+
+.modalPointsHeader {
+  width: 62vw;
+  margin-left: -15px;
+}
+
+.modalPointImage {
+  width: 60vw;
+  height: 430px;
+  border-radius: 8px;
+  margin-top: -30px
+}
+
+.pointActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 62vw;
+}
+
+.pointInfo {
+  width: 62vw;
+  margin-top: 30px
+}
+
+.pointButons {
+  height: 150px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.pointButon {
+  height: 40px;
+  width: 160px;
+}
+
+.pointButon h4 {
+  font-size: 12px;
+
+}
+
+.modalTitle {
+  color: var(--title-color);
+  line-height: 50px
+}
+
+.modalSubTitle {
+  color: var(--text-color);
+  font-size: 18px;
+}

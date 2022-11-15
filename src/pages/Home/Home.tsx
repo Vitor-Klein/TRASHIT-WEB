@@ -19,7 +19,7 @@ function Home() {
         <main>
 
           <div className='content'>
-            <h1>Seu marketplace de coleta de resíduos.</h1>
+            <h1>Seu app informativo de coleta de resíduos.</h1>
             <p>Ajudamos pessoas a encontrarem pontos de coleta de forma eficiente.</p>
 
             <Link to="/signIn">

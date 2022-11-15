@@ -7,7 +7,8 @@ import logo from '../../assets/logo.svg'
 import ReactDOMServer from 'react-dom/server'
 import L from 'leaflet'
 import MarkerCustom from '../../components/Marker/Marker'
-import { Button } from 'antd'
+import { Modal, Button } from '@mui/material';
+import { Delete, AddLocationAlt } from '@mui/icons-material';
 
 import './styles.css'
 
@@ -23,6 +24,9 @@ interface Point {
   image: string
   latitude: number
   longitude: number
+  uf: string
+  city: string
+  country: string
 }
 
 interface Params {
@@ -33,10 +37,12 @@ interface Params {
 function Points() {
   const [items, setItems] = useState<Item[]>([])
   const [points, setPoints] = useState<Point[]>([])
+  const [point, setPoint] = useState<Point>()
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0])
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
 
   const navigation = useNavigate()
 
@@ -72,10 +78,15 @@ function Points() {
         }
       }).then(response => {
         var arr = [];
-        for (var i = 0; i < response.data.length; i++) {
-          var a = response.data[i].tb_ponto_coletum;
-          arr.push(a);
-          setPoints(arr);
+        if (response.data.length === 0) {
+          setPoints([]);
+        } else {
+          for (var i = 0; i < response.data.length; i++) {
+            var a = response.data[i].tb_ponto_coletum;
+            arr.push(a);
+            setPoints(arr);
+          }
+
         }
       })
     }
@@ -95,6 +106,11 @@ function Points() {
 
   }
 
+  function setPointDetail(point: Point) {
+    setPoint(point)
+    setModalVisible(true)
+  }
+
   const ShowMarkers = ({ markers }: any) => {
     return markers.map((point: any) => {
       return (
@@ -107,7 +123,7 @@ function Points() {
               ]}
             eventHandlers={{
               click: () => {
-                console.log('marker clicked')
+                setPointDetail(point)
               },
             }}
             interactive={true}
@@ -127,48 +143,98 @@ function Points() {
     })
   }
 
+  function handleDeletePoint(id: any) {
+    api.delete('/pontocoleta', {
+      params: {
+        id
+      }
+    })
+    alert('Ponto de coleta Deletado!')
+    setModalVisible(false)
+  }
+
   return (
-    <div className="pointsContainer">
-      <header className="pointsHeader">
-        <img src={logo} alt="Ecoleta" />
-        <Link to="/createPoint" className="addPoint">
-          <strong>Cadastrar Ponto</strong>
-        </Link>
-      </header>
-      <div className="mapContainer">
-        {initialPosition[0] !== 0 && initialPosition[1] !== 0 && (
-          <div className="map">
-            <MapContainer
-              center={initialPosition}
-              zoom={15}
-              style={{ width: '800px', height: '450px', borderRadius: '8px' }}
-            >
-              <ShowMarkers markers={points} />
-              <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-            </MapContainer>
+    <>
+      <div className="pointsContainer">
+        <header className="pointsHeader">
+          <img src={logo} alt="Ecoleta" />
+          <Link to="/createPoint" className="addPoint">
+            <strong>Cadastrar Ponto</strong>
+          </Link>
+        </header>
+        <div className="mapContainer">
+          {initialPosition[0] !== 0 && initialPosition[1] !== 0 && (
+            <div className="map">
+              <MapContainer
+                center={initialPosition}
+                zoom={15}
+                style={{ width: '800px', height: '450px', borderRadius: '8px' }}
+              >
+                <ShowMarkers markers={points} />
+                <TileLayer
+                  attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+              </MapContainer>
+            </div>
+          )}
+        </div>
+
+        <div className="containerCategorias">
+          <ul className="items-grid">
+            {items.map(item => (
+              <li
+                key={item.id}
+                onClick={() => handleSelectItem(item.id)}
+                className={selectedItems.includes(item.id) ? 'selected' : ''}
+              >
+                <img src={`http://localhost:3333/uploads/${item.imageData}`} alt={item.title} />
+                <span>{item.title}</span>
+              </li>
+            ))}
+
+          </ul>
+        </div>
+      </div>
+
+      <Modal
+        open={modalVisible}
+        onClose={() => setModalVisible(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className='modal'
+      >
+        <>
+          <div className='modalContainer'>
+            <div className='modalPointsHeader'>
+              <header className="modalPointsHeader">
+                <img src={logo} alt="Ecoleta" />
+              </header>
+            </div>
+            <img src={point?.image} alt="imagem do ponto" className='modalPointImage' />
+            <div className="pointActions">
+              <div className="pointInfo">
+                <h2 className='modalTitle'>{point?.name}</h2>
+                <h2 className='modalTitle'>Endereço:</h2>
+                <h4 className='modalSubTitle'> {point?.city}, {point?.uf}, {point?.country}</h4>
+              </div>
+
+              <div className="pointButons">
+                <Button onClick={() => {
+                  handleDeletePoint(point?.id)
+                }} className="pointButon" variant="contained" color='error' startIcon={<Delete />}>
+                  <h4>Excluir Ponto</h4>
+                </Button>
+                <Button className="pointButon" variant="contained" color='success' startIcon={<AddLocationAlt />}>
+                  <h4>Aceitar Ponto</h4>
+                </Button>
+              </div>
+            </div>
+
           </div>
-        )}
-      </div>
-
-      <div className="containerCategorias">
-        <ul className="items-grid">
-          {items.map(item => (
-            <li
-              key={item.id}
-              onClick={() => handleSelectItem(item.id)}
-              className={selectedItems.includes(item.id) ? 'selected' : ''}
-            >
-              <img src={`http://localhost:3333/uploads/${item.imageData}`} alt={item.title} />
-              <span>{item.title}</span>
-            </li>
-          ))}
-
-        </ul>
-      </div>
-    </div>
+        </>
+      </Modal>
+    </>
   )
 }
 

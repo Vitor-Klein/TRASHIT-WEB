@@ -33,3 +33,19 @@ h6 {
   color: var(--title-color);
   font-family: Ubuntu;
 }
+
+::-webkit-scrollbar {
+  width: 1.1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1a29;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #342e47;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2b263b;
+}
