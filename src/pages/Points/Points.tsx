@@ -27,6 +27,7 @@ interface Point {
   uf: string
   city: string
   country: string
+  status: string
 }
 
 interface Params {
@@ -225,9 +226,11 @@ function Points() {
                 }} className="pointButon" variant="contained" color='error' startIcon={<Delete />}>
                   <h4>Excluir Ponto</h4>
                 </Button>
-                <Button className="pointButon" variant="contained" color='success' startIcon={<AddLocationAlt />}>
-                  <h4>Aceitar Ponto</h4>
-                </Button>
+                {point?.status === 'solicitado' ? (
+                  <Button className="pointButon" variant="contained" color='success' startIcon={<AddLocationAlt />}>
+                    <h4>Aceitar Ponto</h4>
+                  </Button>
+                ) : null}
               </div>
             </div>
 
