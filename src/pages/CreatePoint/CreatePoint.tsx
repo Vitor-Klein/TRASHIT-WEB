@@ -39,7 +39,7 @@ const CreatePoint = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    whatsapp: '',
+    cellphone: '',
   })
 
   const [selectedUf, setSelectedUf] = useState('0')
@@ -149,7 +149,7 @@ const CreatePoint = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const { name, email, whatsapp } = formData
+    const { name, email, cellphone } = formData
     const uf = selectedUf
     const city = selectedCity
     const [latitude, longitude] = selectedPosition
@@ -158,7 +158,7 @@ const CreatePoint = () => {
     let data = {
       name,
       email,
-      whatsapp,
+      cellphone,
       uf,
       city,
       country: 'Brasil',
@@ -215,11 +215,11 @@ const CreatePoint = () => {
               />
             </div>
             <div className="field">
-              <label htmlFor="whatsapp">Whatsapp</label>
+              <label htmlFor="cellphone">Whatsapp</label>
               <input
                 type="text"
-                name="whatsapp"
-                id="whatsapp"
+                name="cellphone"
+                id="cellphone"
                 onChange={handelInputChange}
               />
             </div>
