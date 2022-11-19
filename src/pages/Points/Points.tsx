@@ -8,7 +8,7 @@ import ReactDOMServer from 'react-dom/server'
 import L from 'leaflet'
 import MarkerCustom from '../../components/Marker/Marker'
 import { Modal, Button } from '@mui/material';
-import { Delete, AddLocationAlt } from '@mui/icons-material';
+import { Delete, AddLocationAlt, Close } from '@mui/icons-material';
 
 import './styles.css'
 
@@ -44,6 +44,7 @@ function Points() {
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0])
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [pointDelete, setPointDelete] = useState<boolean>(false)
 
   const navigation = useNavigate()
 
@@ -91,7 +92,7 @@ function Points() {
         }
       })
     }
-  }, [selectedItems])
+  }, [selectedItems, pointDelete])
 
 
   function handleSelectItem(id: number) {
@@ -145,13 +146,14 @@ function Points() {
   }
 
   function handleDeletePoint(id: any) {
-    api.delete('/pontocoleta', {
+    api.delete('/pontocoleta/delete', {
       params: {
         id
       }
     })
     alert('Ponto de coleta Deletado!')
     setModalVisible(false)
+    setPointDelete(!pointDelete)
   }
 
   return (
@@ -210,6 +212,11 @@ function Points() {
             <div className='modalPointsHeader'>
               <header className="modalPointsHeader">
                 <img src={logo} alt="Ecoleta" />
+                <Button onClick={() => {
+                  setModalVisible(false)
+                }} variant="outlined" style={{ border: '2px solid red' }} color='error' startIcon={<Close />}>
+                  <h4>Fechar Detalhes</h4>
+                </Button>
               </header>
             </div>
             <img src={point?.image} alt="imagem do ponto" className='modalPointImage' />

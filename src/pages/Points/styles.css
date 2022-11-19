@@ -111,6 +111,9 @@
 .modalPointsHeader {
   width: 62vw;
   margin-left: -15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
 }
 
 .modalPointImage {
