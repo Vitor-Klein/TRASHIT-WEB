@@ -10,6 +10,8 @@ import MarkerCustom from '../../components/Marker/Marker'
 import { Modal, Button } from '@mui/material';
 import { Delete, AddLocationAlt } from '@mui/icons-material';
 
+import classNames from 'classNames';
+
 import './styles.css'
 
 interface Item {
@@ -58,6 +60,7 @@ function Points() {
         setInitialPosition([latitude, longitude])
       })
     }
+
     loadPosition()
   }, [])
 
@@ -71,6 +74,8 @@ function Points() {
     if (selectedItems.length === 0) {
       api.get('/pontocoleta').then(response => {
         setPoints(response.data)
+        statusClass(response.data);
+
       })
     } else {
       api.get('pontocoleta/findCa', {
@@ -81,6 +86,7 @@ function Points() {
         var arr = [];
         if (response.data.length === 0) {
           setPoints([]);
+
         } else {
           for (var i = 0; i < response.data.length; i++) {
             var a = response.data[i].tb_ponto_coletum;
@@ -112,6 +118,15 @@ function Points() {
     setModalVisible(true)
   }
 
+  function statusClass(point: Point) {
+    console.log(point);
+    for (var i = 0; i < points.length; i++) {
+      if (points[i].status = 'Pendente') {
+
+      }
+    }
+  }
+
   const ShowMarkers = ({ markers }: any) => {
     return markers.map((point: any) => {
       return (
@@ -132,6 +147,7 @@ function Points() {
               className: "custom icon", html: ReactDOMServer.renderToString(
                 <>
                   <MarkerCustom
+                    pointStatus={point.status}
                     pointImage={point.image}
                     pointName={point.name}
                   />

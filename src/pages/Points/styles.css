@@ -160,3 +160,32 @@
   color: var(--text-color);
   font-size: 18px;
 }
+
+.pending {
+  background: #c59117;
+  width: 100%;
+}
+
+.pending-triangle{
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-top: 10px solid #c59117;
+  margin-top: -5px
+}
+.aproved {
+  background: #4376e3;
+  width: 100%;
+}
+
+.aproved-triangle {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+
+  border-top: 10px solid #4376e3;
+  margin-top: -5px
+}
