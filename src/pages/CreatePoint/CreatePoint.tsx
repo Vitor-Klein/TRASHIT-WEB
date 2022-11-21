@@ -51,8 +51,16 @@ const CreatePoint = () => {
   const navigate = useNavigate();
 
   const user = localStorage.getItem('user')
-  const userData = JSON.parse(`${user}`).data
-  console.log(userData)
+  const userData = JSON.parse(`${user}`)
+
+  useEffect(() => {
+    if (!userData) {
+      navigate('/signIn')
+    } else {
+      navigate('/createPoint')
+
+    }
+  }, [])
 
   useEffect(() => {
     async function loadPosition() {
@@ -166,7 +174,7 @@ const CreatePoint = () => {
       longitude,
       items,
       image: selectedFile,
-      id_user: userData.id
+      id_user: userData.data.id
     }
 
     await api.post('/pontocoleta', data)

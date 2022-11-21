@@ -10,8 +10,6 @@ import MarkerCustom from '../../components/Marker/Marker'
 import { Modal, Button } from '@mui/material';
 import { Delete, AddLocationAlt, Close } from '@mui/icons-material';
 
-import classNames from 'classNames';
-
 import './styles.css'
 
 interface Item {
@@ -50,8 +48,19 @@ function Points() {
 
   const navigation = useNavigate()
 
-  // const user = localStorage.getItem('user')
-  // const userData = JSON.parse(`${user}`).data
+
+
+  useEffect(() => {
+    const user = localStorage.getItem('user')
+    const userData = JSON.parse(`${user}`)
+
+    if (!userData) {
+      navigation('/signIn')
+    } else {
+      navigation('/pontos')
+
+    }
+  }, [])
 
   useEffect(() => {
     async function loadPosition() {
@@ -249,7 +258,7 @@ function Points() {
                 }} className="pointButon" variant="contained" color='error' startIcon={<Delete />}>
                   <h4>Excluir Ponto</h4>
                 </Button>
-                {point?.status === 'solicitado' ? (
+                {point?.status === 'Pendente' ? (
                   <Button className="pointButon" variant="contained" color='success' startIcon={<AddLocationAlt />}>
                     <h4>Aceitar Ponto</h4>
                   </Button>
