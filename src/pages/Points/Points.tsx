@@ -45,6 +45,7 @@ function Points() {
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [pointDelete, setPointDelete] = useState<boolean>(false)
+  const [pointCategories, setPointCategories] = useState<any>()
 
   const navigation = useNavigate()
 
@@ -125,11 +126,18 @@ function Points() {
 
   function setPointDetail(point: Point) {
     setPoint(point)
+    api.get('pontocoleta/findCategoriesByPoint', {
+      params: {
+        id_ponto: point.id
+      }
+    }).then(response => {
+      setPointCategories(response)
+      console.log(response.data)
+    })
     setModalVisible(true)
   }
 
   function statusClass(point: Point) {
-    console.log(point);
     for (var i = 0; i < points.length; i++) {
       if (points[i].status = 'Pendente') {
 
@@ -248,8 +256,17 @@ function Points() {
             <div className="pointActions">
               <div className="pointInfo">
                 <h2 className='modalTitle'>{point?.name}</h2>
-                <h2 className='modalTitle'>Endereço:</h2>
-                <h4 className='modalSubTitle'> {point?.city}, {point?.uf}, {point?.country}</h4>
+                <h2 className='modalTitle'>Este ponto coleta:</h2>
+                {pointCategories ? Object.values(pointCategories.data).map((category: any) => {
+                  return (
+                    <h2 className='modalSubTitle'>{category?.title},</h2>
+                  )
+                }) : null}
+                <div className='modalEndereco'>
+                  <h2 className='modalTitle'>Endereço:</h2>
+                  <h4 className='modalSubTitle'> {point?.city}, {point?.uf}, {point?.country}</h4>
+                </div>
+
               </div>
 
               <div className="pointButons">

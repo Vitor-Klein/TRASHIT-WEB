@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: -30px
+  margin-top: -30px;
 }
 
 .pointsContainer header {
@@ -106,6 +106,7 @@
   overflow: auto;
   border-radius: 8px;
   flex-direction: column;
+  padding: 30px;
 }
 
 .modalPointsHeader {
@@ -113,7 +114,8 @@
   margin-left: -15px;
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
+  position: static
 }
 
 .modalPointImage {
@@ -132,7 +134,8 @@
 
 .pointInfo {
   width: 62vw;
-  margin-top: 30px
+  height: 10vh;
+  margin-top: 30px;
 }
 
 .pointButons {
@@ -164,12 +167,16 @@
   font-size: 18px;
 }
 
+.modalEndereco {
+  padding-bottom: 30px
+}
+
 .pending {
   background: #c59117;
   width: 100%;
 }
 
-.pending-triangle{
+.pending-triangle {
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -178,6 +185,7 @@
   border-top: 10px solid #c59117;
   margin-top: -5px
 }
+
 .aproved {
   background: #4376e3;
   width: 100%;

@@ -1,0 +1,13 @@
+.containerPolitica {
+  width: 90vw;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerPolitica span {
+  text-align: justify;
+  margin-left: 100px;
+  color: #fff;
+}
