@@ -1,7 +1,6 @@
 import './styles.css'
 
 function Politica() {
-
   return (
     <div className="containerPolitica">
       <span>
