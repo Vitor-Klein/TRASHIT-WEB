@@ -1,4 +1,4 @@
-import { 
+import {
   BrowserRouter as Router,
   Routes,
   Route
@@ -9,6 +9,7 @@ import SignIn from './pages/Login/Login'
 import SignUp from './pages/Register/Register'
 import Points from './pages/Points/Points'
 import CreatePoint from './pages/CreatePoint/CreatePoint'
+import Politica from './pages/PoliticaPrivacidade/Politica'
 
 export function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export function AppRoutes() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/pontos" element={<Points />} />
         <Route path="/createPoint" element={<CreatePoint />} />
+        <Route path="/police" element={<Politica />} />
       </Routes>
     </Router>
   )
