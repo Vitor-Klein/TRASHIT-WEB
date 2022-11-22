@@ -106,8 +106,7 @@
   overflow: auto;
   border-radius: 8px;
   flex-direction: column;
-  padding: 20px;
-
+  padding: 30px;
 }
 
 .modalPointsHeader {
@@ -116,7 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px
+  position: static
 }
 
 .modalPointImage {
@@ -135,6 +134,7 @@
 
 .pointInfo {
   width: 62vw;
+  height: 10vh;
   margin-top: 30px;
 }
 
@@ -165,6 +165,10 @@
 .modalSubTitle {
   color: var(--text-color);
   font-size: 18px;
+}
+
+.modalEndereco {
+  padding-bottom: 30px
 }
 
 .pending {

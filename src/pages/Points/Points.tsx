@@ -262,8 +262,11 @@ function Points() {
                     <h2 className='modalSubTitle'>{category?.title},</h2>
                   )
                 }) : null}
-                <h2 className='modalTitle'>Endereço:</h2>
-                <h4 className='modalSubTitle'> {point?.city}, {point?.uf}, {point?.country}</h4>
+                <div className='modalEndereco'>
+                  <h2 className='modalTitle'>Endereço:</h2>
+                  <h4 className='modalSubTitle'> {point?.city}, {point?.uf}, {point?.country}</h4>
+                </div>
+
               </div>
 
               <div className="pointButons">
