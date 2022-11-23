@@ -152,6 +152,7 @@ function Points() {
     api.put(`/pontocoleta/${point_id}`, data).then(response => {
     })
     setPointEdited(!pointEdited)
+    setModalVisible(false)
   }
 
   const ShowMarkers = ({ markers }: any) => {
