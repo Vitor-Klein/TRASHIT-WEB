@@ -45,6 +45,7 @@ function Points() {
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [pointDelete, setPointDelete] = useState<boolean>(false)
+  const [pointEdited, setPointEdited] = useState<boolean>(false)
   const [pointCategories, setPointCategories] = useState<any>()
 
   const navigation = useNavigate()
@@ -108,7 +109,7 @@ function Points() {
         }
       })
     }
-  }, [selectedItems, pointDelete])
+  }, [selectedItems, pointDelete, pointEdited])
 
 
   function handleSelectItem(id: number) {
@@ -142,6 +143,15 @@ function Points() {
 
       }
     }
+  }
+
+  function aceptPoint(point_id: any) {
+    const data = {
+      status: 'Aprovado'
+    }
+    api.put(`/pontocoleta/${point_id}`, data).then(response => {
+    })
+    setPointEdited(!pointEdited)
   }
 
   const ShowMarkers = ({ markers }: any) => {
@@ -275,7 +285,13 @@ function Points() {
                   <h4>Excluir Ponto</h4>
                 </Button>
                 {point?.status === 'Pendente' ? (
-                  <Button className="pointButon" variant="contained" color='success' startIcon={<AddLocationAlt />}>
+                  <Button
+                    onClick={() => aceptPoint(point?.id)}
+                    className="pointButon"
+                    variant="contained"
+                    color='success'
+                    startIcon={<AddLocationAlt />}
+                  >
                     <h4>Aceitar Ponto</h4>
                   </Button>
                 ) : null}
