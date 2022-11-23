@@ -132,7 +132,6 @@ function Points() {
       }
     }).then(response => {
       setPointCategories(response)
-      console.log(response.data)
     })
     setModalVisible(true)
   }
