@@ -2,7 +2,9 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
 import { Input } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
-import axios from 'axios'
+import axios from 'axios';
+import InputMask from 'react-text-mask';
+
 import api from '../../services/api'
 
 import logoImg from '../../assets/fullLogo.svg'
@@ -29,6 +31,45 @@ function Register() {
     const [ufs, setUfs] = useState<string[]>([])
     const [cities, setCities] = useState<string[]>([])
     const navigate = useNavigate();
+
+    const cnpjMask = [
+      /[0-9]/,
+      /[0-9]/,
+      '.',
+      /[0-9]/,
+      /[0-9]/,
+      /[0-9]/,
+      '.',
+      /[0-9]/,
+      /[0-9]/,
+      /[0-9]/,
+      '/',
+      /[0-9]/,
+      /[0-9]/,
+      /[0-9]/,
+      /[0-9]/,
+      '-',
+      /[0-9]/,
+      /[0-9]/,
+    ];
+    const phoneMaskWithDDD = [
+      '(', 
+      /[1-9]/, 
+      /\d/, 
+      ')',
+      ' ', 
+      /\d/, 
+      /\d/, 
+      /\d/, 
+      /\d/, 
+      /\d/, 
+      '-', 
+      /\d/, 
+      /\d/, 
+      /\d/, 
+      /\d/
+    ];
+
 
     useEffect(() => {
       axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
@@ -130,12 +171,14 @@ function Register() {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-             <Input
+             <InputMask
+              mask={cnpjMask}
               placeholder='Cnpj'
               value={cnpj}
               onChange={e => setCnpj(e.target.value)}
             />
-            <Input
+            <InputMask
+              mask={phoneMaskWithDDD}
               placeholder='Whatsapp'
               value={whatsapp}
               onChange={e => setWhatsapp(e.target.value)}
