@@ -170,3 +170,7 @@ form textarea {
 .back-link:hover {
   opacity: 0.8;
 }
+
+.errorMessage {
+  color: red;
+}

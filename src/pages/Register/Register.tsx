@@ -31,6 +31,7 @@ function Register() {
     const [ufs, setUfs] = useState<string[]>([])
     const [cities, setCities] = useState<string[]>([])
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
     const cnpjMask = [
       /[0-9]/,
@@ -127,7 +128,7 @@ function Register() {
         alert("Cadastro realizado com sucesso!!")
         navigate(`/signIn`);
       } catch (err) {
-          alert(err)
+          setErrorMessage(err.response.data.message);
       }
     }
   return (
@@ -158,7 +159,9 @@ function Register() {
               value={name}
               onChange={e => setName(e.target.value)}
             />
-
+            <p className='errorMessage'>
+              {errorMessage}
+            </p>
             <Input
               type="email" 
               placeholder='E-mail'

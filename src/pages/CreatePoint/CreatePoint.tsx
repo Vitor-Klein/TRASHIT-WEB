@@ -47,6 +47,7 @@ const CreatePoint = () => {
   const [selectedItems, setSelectedItems] = useState<number[]>([])
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
   const [selectedFile, setSelectedFile] = useState<string>()
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -155,32 +156,39 @@ const CreatePoint = () => {
   }
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault()
+    try {
+      event.preventDefault()
 
-    const { name, email, cellphone } = formData
-    const uf = selectedUf
-    const city = selectedCity
-    const [latitude, longitude] = selectedPosition
-    const items = selectedItems.join(',')
+      const { name, email, cellphone } = formData
+      const uf = selectedUf
+      const city = selectedCity
+      const [latitude, longitude] = selectedPosition
+      const items = selectedItems.join(',')
 
-    let data = {
-      name,
-      email,
-      cellphone,
-      uf,
-      city,
-      country: 'Brasil',
-      latitude,
-      longitude,
-      items,
-      image: selectedFile,
-      id_user: userData.data.id
+      let data = {
+        name,
+        email,
+        cellphone,
+        uf,
+        city,
+        country: 'Brasil',
+        latitude,
+        longitude,
+        items,
+        image: selectedFile,
+        id_user: userData.data.id
+      }
+
+
+      await api.post('/pontocoleta', data)
+
+      alert('Ponto de coleta criado!')
+      navigate('/pontos')
+
+    } catch (err) {
+      alert(err.response.data.message);
     }
 
-    await api.post('/pontocoleta', data)
-
-    alert('Ponto de coleta criado!')
-    navigate('/pontos')
   }
 
   return (
