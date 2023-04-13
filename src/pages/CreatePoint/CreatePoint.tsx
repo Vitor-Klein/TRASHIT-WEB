@@ -165,6 +165,7 @@ const CreatePoint = () => {
       const [latitude, longitude] = selectedPosition
       const items = selectedItems.join(',')
 
+
       let data = {
         name,
         email,
@@ -186,7 +187,7 @@ const CreatePoint = () => {
       navigate('/pontos')
 
     } catch (err) {
-      alert(err.response.data.message);
+      setErrorMessage(err.response.data.message);
     }
 
   }
@@ -313,10 +314,16 @@ const CreatePoint = () => {
 
           </ul>
         </fieldset>
+        
+        <div className="BoxError">
+          <strong className='errorMessage'>{errorMessage}</strong>
+        </div>
 
         <button type="submit">
           Cadastrar Ponto De Coleta
         </button>
+
+
       </form>
     </div>
   )
