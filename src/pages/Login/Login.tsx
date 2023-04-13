@@ -20,16 +20,16 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function handleRegister(e: FormEvent) {
     try {
       const user = await api.get(`user/authent`, { params: { email, password } })
       //salvar o usuario no localstorage para usar futuramente nas paginas
-      alert('Acesso Autorizado!')
       localStorage.setItem("user", JSON.stringify(user))
       navigate(`/pontos`);
     } catch (err) {
-      alert(err.response.data.message)
+      setErrorMessage(err.response.data.message);
     }
   }
 
@@ -58,6 +58,7 @@ function Login() {
                   },
                 ]}
               >
+                
                 <Input
                   placeholder="Email"
                   autoCapitalize="none"
@@ -85,6 +86,9 @@ function Login() {
                   onChange={e => setPassword(e.target.value)}
                 />
               </Form.Item>
+              <div className="BoxError">
+                <strong className='errorMessage'>{errorMessage}</strong>
+              </div>
 
               <Form.Item>
                 <Button
