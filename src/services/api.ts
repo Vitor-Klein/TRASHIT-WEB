@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'https://trash-it.onrender.com'
+    baseURL: 'http://localhost:3400'
 })
 
 export default api

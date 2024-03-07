@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FiUpload } from 'react-icons/fi'
-import Buffer from 'buffer'
 import './styles.css'
 
 interface Props {
@@ -29,6 +28,7 @@ const Dropzone: React.FC<Props> = ({ onFileUplouded }) => {
     accept: { accepted: ['image/*'] }
   })
 
+  console.log(selectedFileUrl);
   return (
     <div className="dropzone" {...getRootProps()}>
       <input {...getInputProps()} accept="image/*" />
