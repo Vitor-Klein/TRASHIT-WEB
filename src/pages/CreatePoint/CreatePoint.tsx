@@ -1,15 +1,12 @@
-import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { FiArrowLeft } from 'react-icons/fi'
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import axios from 'axios'
 import { LeafletMouseEvent } from 'leaflet'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { FiArrowLeft } from 'react-icons/fi'
+import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../../services/api'
-import ReactDOMServer from 'react-dom/server'
-import L from 'leaflet'
 
 import Dropzone from '../../components/Dropzone/Dropzone'
-import MarkerCustom from '../../components/Marker/Marker'
 
 import './styles.css'
 
@@ -164,8 +161,7 @@ const CreatePoint = () => {
       const city = selectedCity
       const [latitude, longitude] = selectedPosition
       const items = selectedItems.join(',')
-
-
+      
       let data = {
         name,
         email,
@@ -177,8 +173,11 @@ const CreatePoint = () => {
         longitude,
         items,
         image: selectedFile,
-        id_user: userData.data.id
+        id_user: userData.data.id,
+        description: 'teste',
+        status: 'teste'
       }
+      // console.log(data);
 
 
       await api.post('/pontocoleta', data)
