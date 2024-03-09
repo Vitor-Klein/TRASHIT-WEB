@@ -5,21 +5,21 @@ import './styles.css'
 function MarkerCustom(props: any) {
   let boolAproved = false;
   let boolPending = false;
-  if(props.pointStatus === 'Aprovado') {
+  if (props.pointStatus === 'Aprovado') {
     boolAproved = true;
-  } else if(props.pointStatus === 'Pendente') {
+  } else if (props.pointStatus === 'Pendente') {
     boolPending = true;
   }
   return (
     <>
       <div className='mapMarker'>
         <div className={`mapMarkerContainer ${boolPending ? 'pending' : '' ||
-          boolAproved? 'aproved' : ''}`}>
-          <img className='mapMarkerImage' src={props.pointImage} />
+          boolAproved ? 'aproved' : ''}`}>
+          <img className='mapMarkerImage' src={props.pointImage} alt='' />
           <h3 className='mapMarkerTitle'>{props.pointName}</h3>
         </div>
-        <div className={`triangle ${boolPending? 'pending-triangle' : '' || 
-          boolAproved? 'aproved-triangle' : ''}`}>
+        <div className={`triangle ${boolPending ? 'pending-triangle' : '' ||
+          boolAproved ? 'aproved-triangle' : ''}`}>
         </div>
 
       </div>

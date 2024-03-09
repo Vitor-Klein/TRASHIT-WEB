@@ -21,116 +21,116 @@ interface IBGECityResponse {
 }
 
 function Register() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [cnpj, setCnpj] = useState('')
-    const [whatsapp, setWhatsapp] = useState('')
-    const [selectedUf, setSelectedUf] = useState('0')
-    const [selectedCity, setSelecdetCity] = useState('0')
-    const [ufs, setUfs] = useState<string[]>([])
-    const [cities, setCities] = useState<string[]>([])
-    const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [cnpj, setCnpj] = useState('')
+  const [whatsapp, setWhatsapp] = useState('')
+  const [selectedUf, setSelectedUf] = useState('0')
+  const [selectedCity, setSelecdetCity] = useState('0')
+  const [ufs, setUfs] = useState<string[]>([])
+  const [cities, setCities] = useState<string[]>([])
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const cnpjMask = [
-      /[0-9]/,
-      /[0-9]/,
-      '.',
-      /[0-9]/,
-      /[0-9]/,
-      /[0-9]/,
-      '.',
-      /[0-9]/,
-      /[0-9]/,
-      /[0-9]/,
-      '/',
-      /[0-9]/,
-      /[0-9]/,
-      /[0-9]/,
-      /[0-9]/,
-      '-',
-      /[0-9]/,
-      /[0-9]/,
-    ];
-    const phoneMaskWithDDD = [
-      '(', 
-      /[1-9]/, 
-      /\d/, 
-      ')',
-      ' ', 
-      /\d/, 
-      /\d/, 
-      /\d/, 
-      /\d/, 
-      /\d/, 
-      '-', 
-      /\d/, 
-      /\d/, 
-      /\d/, 
-      /\d/
-    ];
+  const cnpjMask = [
+    /[0-9]/,
+    /[0-9]/,
+    '.',
+    /[0-9]/,
+    /[0-9]/,
+    /[0-9]/,
+    '.',
+    /[0-9]/,
+    /[0-9]/,
+    /[0-9]/,
+    '/',
+    /[0-9]/,
+    /[0-9]/,
+    /[0-9]/,
+    /[0-9]/,
+    '-',
+    /[0-9]/,
+    /[0-9]/,
+  ];
+  const phoneMaskWithDDD = [
+    '(',
+    /[1-9]/,
+    /\d/,
+    ')',
+    ' ',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    '-',
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+  ];
 
 
-    useEffect(() => {
-      axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-        const ufInitials = response.data.map(uf => uf.sigla)
-  
-        setUfs(ufInitials)
+  useEffect(() => {
+    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+      const ufInitials = response.data.map(uf => uf.sigla)
+
+      setUfs(ufInitials)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (selectedUf === '0') {
+      return
+    }
+    axios
+      .get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
+      .then(response => {
+        const cityNames = response.data.map(city => city.nome)
+
+        setCities(cityNames)
       })
-    },[])
 
-    useEffect(() => {
-      if(selectedUf === '0') {
-        return
-      }
-      axios
-        .get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
-        .then(response => {
-          const cityNames = response.data.map(city => city.nome)
-  
-          setCities(cityNames)
-      })
-  
-    }, [selectedUf])
+  }, [selectedUf])
 
-    function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
-      const uf = event.target.value
-  
-      setSelectedUf(uf)
+  function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
+    const uf = event.target.value
+
+    setSelectedUf(uf)
+  }
+
+  function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+    const city = event.target.value
+
+    setSelecdetCity(city)
+  }
+
+  async function handleRegister(e: FormEvent) {
+    e.preventDefault()
+
+    const uf = selectedUf
+    const city = selectedCity
+
+    const data = {
+      name,
+      email,
+      password,
+      cnpj,
+      number: whatsapp,
+      city,
+      uf,
+      adm: true
+    };
+
+    try {
+      await api.post('user', data)
+      alert("Cadastro realizado com sucesso!!")
+      navigate(`/signIn`);
+    } catch (err) {
+      setErrorMessage(err.response.data.message);
     }
-  
-    function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
-      const city = event.target.value
-  
-      setSelecdetCity(city)
-    }
-
-    async function handleRegister(e: FormEvent) {
-        e.preventDefault()
-
-        const uf = selectedUf
-        const city = selectedCity
-
-        const data = {
-            name,
-            email,
-            password,
-            cnpj,
-            number: whatsapp,
-            city,
-            uf,
-            adm: true
-        };
-
-      try {
-        await api.post('user', data)
-        alert("Cadastro realizado com sucesso!!")
-        navigate(`/signIn`);
-      } catch (err) {
-          setErrorMessage(err.response.data.message);
-      }
-    }
+  }
   return (
     <>
       <header>
@@ -163,18 +163,18 @@ function Register() {
               {errorMessage}
             </p>
             <Input
-              type="email" 
+              type="email"
               placeholder='E-mail'
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
             <Input
-              type="password" 
+              type="password"
               placeholder='Senha'
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
-             <InputMask
+            <InputMask
               mask={cnpjMask}
               placeholder='Cnpj'
               value={cnpj}
@@ -190,12 +190,13 @@ function Register() {
             <div className="input-group">
               <div className="field">
                 <label htmlFor="uf"></label>
-                <select 
-                    name="uf" 
-                    id="uf" 
-                    value={selectedUf} 
-                    onChange={handleSelectUf}
-                  >
+                <select
+                  name="uf"
+                  title='uf'
+                  id="uf"
+                  value={selectedUf}
+                  onChange={handleSelectUf}
+                >
                   <option value="0">Selecione uma UF</option>
                   {ufs.map(uf => (
                     <option key={uf} value={uf}>{uf}</option>
@@ -205,8 +206,9 @@ function Register() {
 
               <div className="field">
                 <label htmlFor="city"></label>
-                <select 
-                  name="city" 
+                <select
+                  name="city"
+                  title='city'
                   id="city"
                   value={selectedCity}
                   onChange={handleSelectCity}
