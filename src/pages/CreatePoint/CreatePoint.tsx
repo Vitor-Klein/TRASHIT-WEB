@@ -1,10 +1,11 @@
-import axios from 'axios'
+import { Button } from "antd"
 import { LeafletMouseEvent } from 'leaflet'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../services/api'
+
 
 import Dropzone from '../../components/Dropzone/Dropzone'
 
@@ -37,6 +38,7 @@ const CreatePoint = () => {
     name: '',
     email: '',
     cellphone: '',
+    cep: ''
   })
 
   const [selectedUf, setSelectedUf] = useState('0')
@@ -77,27 +79,27 @@ const CreatePoint = () => {
     })
   }, [])
 
-  useEffect(() => {
-    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-      const ufInitials = response.data.map(uf => uf.sigla)
+  // useEffect(() => {
+  //   axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+  //     const ufInitials = response.data.map(uf => uf.sigla)
 
-      setUfs(ufInitials)
-    })
-  }, [])
+  //     setUfs(ufInitials)
+  //   })
+  // }, [])
 
-  useEffect(() => {
-    if (selectedUf === '0') {
-      return
-    }
-    axios
-      .get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
-      .then(response => {
-        const cityNames = response.data.map(city => city.nome)
+  // useEffect(() => {
+  //   if (selectedUf === '0') {
+  //     return
+  //   }
+  //   axios
+  //     .get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
+  //     .then(response => {
+  //       const cityNames = response.data.map(city => city.nome)
 
-        setCities(cityNames)
-      })
+  //       setCities(cityNames)
+  //     })
 
-  }, [selectedUf])
+  // }, [selectedUf])
 
   function handleSelectUf(event: ChangeEvent<HTMLSelectElement>) {
     const uf = event.target.value
@@ -137,6 +139,15 @@ const CreatePoint = () => {
     const { name, value } = event.target
 
     setFormData({ ...formData, [name]: value })
+  }
+
+  async function getCep() {
+    const { cep } = formData;
+
+    const userCep = await api.get(`https://brasilapi.com.br/api/cep/v1/${cep}`);
+    setSelectedUf(userCep.data.state)
+    setSelecdetCity(userCep.data.city)
+    console.log(userCep.data.city);
   }
 
   function handleSelectItem(id: number) {
@@ -202,7 +213,9 @@ const CreatePoint = () => {
       </header>
 
       <form onSubmit={handleSubmit}>
-        <h1>Cadastro do <br /> ponto de coleta</h1>
+        <h1>
+          Cadastro do <br /> ponto de coleta
+        </h1>
 
         <Dropzone onFileUplouded={setSelectedFile} />
 
@@ -239,6 +252,16 @@ const CreatePoint = () => {
                 onChange={handelInputChange}
               />
             </div>
+            <div className="field">
+              <label htmlFor="cep">CEP</label>
+              <input
+                type="text"
+                name="cep"
+                id="cep"
+                onChange={handelInputChange}
+              />
+              <Button onClick={getCep}>Validar Cep</Button>
+            </div>
           </div>
         </fieldset>
 
@@ -249,10 +272,7 @@ const CreatePoint = () => {
           </legend>
 
           {initialPosition[0] !== 0 && (
-            <MapContainer
-              center={initialPosition}
-              zoom={15}
-            >
+            <MapContainer center={initialPosition} zoom={15}>
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -265,31 +285,19 @@ const CreatePoint = () => {
           <div className="field-group">
             <div className="field">
               <label htmlFor="uf">Estado(UF)</label>
-              <select
+              <input
                 name="uf"
                 id="uf"
                 value={selectedUf}
-                onChange={handleSelectUf}
-              >
-                <option value="0">Selecione uma UF</option>
-                {ufs.map(uf => (
-                  <option key={uf} value={uf}>{uf}</option>
-                ))}
-              </select>
+              ></input>
             </div>
             <div className="field">
               <label htmlFor="city">Cidade</label>
-              <select
+              <input
                 name="city"
                 id="city"
                 value={selectedCity}
-                onChange={handleSelectCity}
-              >
-                <option value="0">Selecione uma Cidade</option>
-                {cities.map(city => (
-                  <option key={city} value={city}>{city}</option>
-                ))}
-              </select>
+              ></input>
             </div>
           </div>
         </fieldset>
@@ -300,32 +308,30 @@ const CreatePoint = () => {
             <span>Selecione um ou mais ítems abaixo</span>
           </legend>
           <ul className="itemsGrid">
-            {items.map(item => (
+            {items.map((item) => (
               <li
                 key={item.id}
                 onClick={() => handleSelectItem(item.id)}
-                className={selectedItems.includes(item.id) ? 'selected' : ''}
+                className={selectedItems.includes(item.id) ? "selected" : ""}
               >
-                <img src={`http://localhost:3400/uploads/${item.imageData}`} alt={item.title} />
+                <img
+                  src={`http://localhost:3400/uploads/${item.imageData}`}
+                  alt={item.title}
+                />
                 <span>{item.title}</span>
               </li>
             ))}
-
           </ul>
         </fieldset>
 
         <div className="BoxError">
-          <strong className='errorMessage'>{errorMessage}</strong>
+          <strong className="errorMessage">{errorMessage}</strong>
         </div>
 
-        <button type="submit">
-          Cadastrar Ponto De Coleta
-        </button>
-
-
+        <button type="submit">Cadastrar Ponto De Coleta</button>
       </form>
     </div>
-  )
+  );
 }
 
 export default CreatePoint
