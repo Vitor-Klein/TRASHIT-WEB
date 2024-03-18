@@ -147,7 +147,6 @@ const CreatePoint = () => {
     const userCep = await api.get(`https://brasilapi.com.br/api/cep/v1/${cep}`);
     setSelectedUf(userCep.data.state)
     setSelecdetCity(userCep.data.city)
-    console.log(userCep.data.city);
   }
 
   function handleSelectItem(id: number) {
