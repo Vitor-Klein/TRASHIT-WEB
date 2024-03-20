@@ -41,8 +41,8 @@ const CreatePoint = () => {
     cep: ''
   })
 
-  const [selectedUf, setSelectedUf] = useState('0')
-  const [selectedCity, setSelecdetCity] = useState('0')
+  const [selectedUf, setSelectedUf] = useState('')
+  const [selectedCity, setSelecdetCity] = useState('')
   const [selectedItems, setSelectedItems] = useState<number[]>([])
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
   const [selectedFile, setSelectedFile] = useState<string>()
@@ -251,16 +251,20 @@ const CreatePoint = () => {
                 onChange={handelInputChange}
               />
             </div>
-            <div className="field">
-              <label htmlFor="cep">CEP</label>
+          </div>
+          <div className="fieldCep">
+            <label htmlFor="cep">CEP</label>
+            <div className="inputGroup">
               <input
                 type="text"
                 name="cep"
                 id="cep"
+                className="cepInput"
                 onChange={handelInputChange}
               />
-              <Button onClick={getCep}>Validar Cep</Button>
+              <Button className="cepButton" onClick={getCep}>Validar Cep</Button>
             </div>
+
           </div>
         </fieldset>
 
