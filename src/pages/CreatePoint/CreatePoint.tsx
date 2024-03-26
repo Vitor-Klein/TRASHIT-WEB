@@ -318,7 +318,7 @@ const CreatePoint = () => {
                 className={selectedItems.includes(item.id) ? "selected" : ""}
               >
                 <img
-                  src={`https://trash-it.onrender.com//uploads/${item.imageData}`}
+                  src={`https://trash-it.onrender.com/uploads/${item.imageData}`}
                   alt={item.title}
                 />
                 <span>{item.title}</span>
