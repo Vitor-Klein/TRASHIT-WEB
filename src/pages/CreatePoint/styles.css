@@ -93,6 +93,56 @@
   color: #6C6C80;
 }
 
+.pageCreatePoint form .fieldCep {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.pageCreatePoint form .fieldCep .inputGroup {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.pageCreatePoint form .fieldCep label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.pageCreatePoint form .fieldCep input {
+  flex: 1;
+  background: #F0F0F5;
+  border-radius: 8px;
+  border: 0;
+  padding: 16px 24px;
+  font-size: 16px;
+  color: #6C6C80;
+  width: 100%;
+  max-width: 450px;
+}
+
+.pageCreatePoint form .fieldCep .cepButton {
+  width: 160px;
+  height: 60px;
+  background: var(--primary-color);
+  border-radius: 8px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 16px;
+  border: 0;
+  margin: 0;
+  margin-left: 10px;
+  align-self: flex-end;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.pageCreatePoint form .fieldCep .cepButton:hover {
+  background: #2FB86E;
+}
+
 .pageCreatePoint form .field select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -119,11 +169,11 @@
   cursor: not-allowed;
 }
 
-.pageCreatePoint form .field-group .field + .field {
+.pageCreatePoint form .field-group .field+.field {
   margin-left: 24px;
 }
 
-.pageCreatePoint form .field-group input + input {
+.pageCreatePoint form .field-group input+input {
   margin-left: 24px;
 }
 

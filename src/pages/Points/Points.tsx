@@ -234,7 +234,7 @@ function Points() {
                 onClick={() => handleSelectItem(item.id)}
                 className={selectedItems.includes(item.id) ? 'selected' : ''}
               >
-                <img src={`https://trash-it.onrender.com/uploads/${item.imageData}`} alt={item.title} />
+                <img src={`http://localhost:3400/uploads/${item.imageData}`} alt={item.title} />
                 <span>{item.title}</span>
               </li>
             ))}
