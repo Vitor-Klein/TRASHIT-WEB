@@ -208,13 +208,18 @@ function Points() {
             <strong>Cadastrar Ponto</strong>
           </Link>
         </header>
+
+        <div className="textContainer">
+          <h2>Bem vindo</h2>
+          <span>Encontre no mapa um ponto de coleta.</span>
+        </div>
         <div className="mapContainer">
           {initialPosition[0] !== 0 && initialPosition[1] !== 0 && (
             <div className="map">
               <MapContainer
                 center={initialPosition}
                 zoom={15}
-                style={{ width: '800px', height: '450px', borderRadius: '8px' }}
+                className='mapContent'
               >
                 <ShowMarkers markers={points} />
                 <TileLayer
