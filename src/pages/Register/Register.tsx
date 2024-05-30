@@ -222,6 +222,12 @@ function Register() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <InputMask
+                  mask={phoneMaskWithDDD}
+                  placeholder="Whatsapp"
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                />
               </>
             )}
             <div className="input-group">
